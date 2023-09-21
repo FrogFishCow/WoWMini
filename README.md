@@ -1,2 +1,2 @@
 # WoWMini
-World of Warcraft API + Mini Game
+World of Warcraft API + Mini Game!
