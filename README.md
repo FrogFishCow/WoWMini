@@ -28,14 +28,33 @@ They will alternate turns using their abilities in order to take their opponents
 
 3. API pulls randomized pets, icons, and abilities and generates them into the main screen.
     - 1 icon 
+        - API pull icon
     - 1 heal 
+        - API pull random ability and assigned it to heal
     - 1 damage
+        - API pull random ability and assigned to damage
     - 1 special ability based on their pet speciliazation
-    - loads health bar
+        - API pull the name of the pets specialization: 10 option:
+            1. Aquatic
+            2. Beast 
+            3. Critter
+            4. Dragonkin
+            5. Elemental
+            6. Flying
+            7. Humanoid
+            8. Magic
+            9. Mechanical 
+            10. Undead
+             
+            (They will each have a different ability, such as a buff/debuff/skip turn etc.)
+
+    - Loads health bar
+    - Loads names and description of pets on icons:
+        - Mouseover function on icons, player pets to reveal descriptions
 
 4. Oppenents roll dice to see who goes first.
     - EventListeners: 
-        - dice roll (random Math(1-10))
+        - dice roll function (random Math(1-10))
     - Player/Oppenent turn function activates based on die roll to see who goes first
 
 5. First player chooses and ability to use and acitivates it by clicking on it.
