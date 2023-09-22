@@ -1,4 +1,3 @@
-# WoWPetsMini
 
 # World of Warcraft Battle Pets Mini!
 
@@ -15,7 +14,7 @@ WoWPetsMini is a simple game where players and/or the computer will be assigned 
 They will alternate turns using their abilities in order to take their opponents down to 0 Health.
 
 ## Game: 
-1. Game starts by allowing players to click to geneerate a randomized pet.
+1. Game starts by allowing players to click to generate a randomized pet.
 
 2. Computer/Oppenent chooses their randomized pet.
     - Onload:
