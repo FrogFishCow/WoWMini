@@ -1,0 +1,127 @@
+Game Screen: 
+1. WoWPets Title + Player Name vs Computer
+2. Player Pet Name vs Computer Pet Name (Who Wins Screen + Score)
+3. Computer Pet Icon
+4. Computer Heal Ability Button
+5. Computer Damage Ability Button
+6. Computer Special Ability Button
+7. Computer Dice Roll Button 
+8. Computer Health Bar (Right)
+9. Player Pet Icon
+10. Player Heal Ability Button
+11. Player Damage Ability
+12. Player Dice Roll Button
+13. Player Special Ability Button
+14. Player Health Bar (Left)
+
+IN FLEX CONTAINER {
+    
+1. WoWPets Title + Player Name vs Computer
+    Left side:
+        - input text function for player to type in their Name/username
+        - assign it to a div box top left corner
+    Center: 
+        - WoW title art
+    Right side: 
+        - Randomly Generated computer name
+
+2. Player Pet Name vs Computer Pet Name (Who wins Screen + Score)
+    Left side: 
+        1. Player score 
+            - updates + 1 after player wins a game
+        2. Player Pet name
+            - Pulls API pet name after Generate Pet button onclick
+                (maybe does an pretend cycle through a few pets like its choosing)
+    Center: 
+        1. Generate Pet
+            - Button to randomly generate a pet
+                - button.addeventlistener function to pull API pet data
+            - Turns into a "VS" when generate is hit
+                - Turns back when the game is over
+    Right side: 
+        1. Computer Pet Name
+            - Pulls API pet name after Generate Pet button onclick
+                (maybe does an pretend cycle through a few pets like its choosing)
+        2. Computer score 
+            - updates + 1 after win condition function
+
+3. Computer Pet Icon
+    - (top right) After generate pet button, loads pet Icon
+        - on mouseover: pet description
+
+4. Computer Heal Ability Button
+    - Pulls a random pet ability icon + description on mouseover after pet generate button
+        - heal function computer activates if computer rolls 1
+            - heals the computer 1-20 roll
+                - increases health bar
+                - green media function on pet icon
+    - switches turn back to Player when turn is over
+
+5. Computer Damage Ability Button
+    - Pulls a random pet ability icon + description on mouseover after pet generate button
+        - damage function computer activates if computer rolls a 2
+            - damages Player 1-20 roll
+                - decreases Players health bar by the amount rolled
+                - pet icon attacks other pet icon animation (if possible)
+                    - sound + motion
+    - switches turn back to Player when turn is over
+
+6. Computer Special Ability Button
+    - Special ability button will be icon of Pet TYPE (10 types)
+        - description will thought of later
+        - 1-10 possible functions
+        - it will do whatever 1 of the 10 functions will do if the computer rolls a 3
+        - switches turn back to Player when turn is over
+
+7. Computer Dice Roll Button 
+    - slightly bigger dice icon to the left of all abilities
+    - will light up when computer rolls dice 
+        (no real function to it, except symmatry with player)
+
+8. Computer Health Bar (Right)
+    - 100%/100hp Health bar going from top to bottom
+        - after computer takes damage or heals it will increase or decrease
+        - 100hp - green
+        - <70hp - yellow
+        - <30hp - red
+    - when health reaches 0, activates win condition
+
+9. Player Pet Icon
+    - (bottom left) After generate pet button, loads pet Icon
+        - on mouseover: pet description
+
+10. Player Heal Ability Button
+    - Pulls a random pet ability icon + description on mouseover after pet generate button
+        - heals the player 1-20 roll
+            - increases health bar
+            - green media function on pet icon
+    - switches turn back to computer when turn is over
+
+11. Player Damage Ability
+     - Pulls a random pet ability icon + description on mouseover after pet generate button
+        - damages Computer 1-20 roll
+            - decreases Computer health bar by the amount rolled
+            - pet icon attacks other pet icon animation (if possible)
+                - sound + motion
+    - switches turn back to computer when turn is over
+
+12. Player Special Ability Button
+     - Special ability button will be icon of Pet TYPE (10 types)
+        - description will thought of later
+        - 1-10 possible functions
+        - it will do whatever 1 of the 10 functions
+        - switches turn back to Player when turn is over
+
+13. Player Dice Roll Button
+    - simple die roll icon
+        - roll for first turn
+        - roll after you select an ability (if its heal or damage), to see activate the spell + to see how much damage/healing it will be doing
+
+14. Player Health Bar (Left)
+      - 100%/100hp Health bar going from top to bottom
+        - after Player takes damage or heals it will increase or decrease
+        - 100hp - green
+        - <70hp - yellow
+        - <30hp - red
+    - when health reaches 0, activates win condition 
+}
