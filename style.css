@@ -55,9 +55,73 @@ body {
 #generate {
     height: 50px;
     width: 100px;
+    margin-bottom: 4em;
     margin-right: 2em;
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
+#generate:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: generateButton 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes generateButton {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+#generate:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
 
 #pet-names {
     width: 100%;
@@ -173,7 +237,7 @@ body {
 }
 
 #player-dice:hover, #computer-dice:hover {
-    border: 10px solid purple;
+    border: 10px solid black;
 }
 
 .dice {
@@ -184,7 +248,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     /* border: 5px double black; */
     color: yellow;
     text-shadow: -1px 1px 0 #000,1px 1px 0 #000,
@@ -194,6 +258,7 @@ body {
     height: 150px;
     margin-bottom: 15px;
 }
+
 
 #player-special, #computer-special {
     border: 5px solid white;
