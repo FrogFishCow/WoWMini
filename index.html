@@ -7,6 +7,9 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/folkard');
+    </style>
 </head>
 
     <body>
@@ -14,12 +17,12 @@
             <div id='pet-names'>
                 
                 <div id="player-pet">
-                    <button id="generate">Generate Pet</button>
-                    <h1>Player</h1>
+                    <!-- <button id="generate">Generate Pet</button> -->
+                    <h2 id="play-pet">Player</h2>
                 </div>
-
+                <div id='empty'></div>
                 <div id="computer-pet">
-                    <h1>Computer</h1>
+                    <h2 id="comp-pet">Computer</h2>
                 </div>
             </div>
             <div id="game-screen">
@@ -43,14 +46,14 @@
                             <button class="buttons" id="player-heal"></button>
                             <button class="buttons" id="player-damage"></button>
                         </div>
-                        <div id="player-pet-img">
+                        <img id="player-pet-img">
 
-                        </div>
+                        
                         <button id="player-dice"><img src="dice.png" class="dice"></button>
                     </div>
 
                     <div id="center-board">
-
+                        <button id="generate">Generate Pet</button>
                     </div>
 
                     <div id="computer-side">
@@ -62,9 +65,8 @@
                             <button class="buttons" id="computer-heal"></button>
                             <button class="buttons" id="computer-special"></button>
                         </div>
-                        <div id="computer-pet-img">
+                        <img id="computer-pet-img">
 
-                        </div>
                         <button id="computer-dice"><img src="dice.png" class="dice"></button>
                     </div>
                 </div>

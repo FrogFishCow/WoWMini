@@ -23,32 +23,47 @@ body {
 
 #player-pet, #computer-pet {
     color: white;
-    background-color: black;
-
+    /* background-color: black; */
+    font-family: 'Folkard', sans-serif;
 }
 
 #player-pet {
+    width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: bisque; */
+}
+
+#empty {
+    width: 400px
+}
+
+#computer-pet {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(220, 150, 64); */
 }
 
 #generate {
     height: 50px;
-    width: 100px
+    width: 100px;
+    margin-right: 2em;
 }
 
 
 #pet-names {
     width: 100%;
     height: 25%;
-    background-color: aqua;
+    /* background-color: aqua; */
     opacity: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    gap: 50rem;
+    /* gap: 20%; */
     color: white;
     font-size: 2rem;
 
@@ -57,18 +72,14 @@ body {
 #game-screen {
     display: flex;
     justify-content: center;
-    background-color: black;
-    opacity: 50%;
+    /* background-color: black; */
+    /* opacity: 50%; */
     width: 100%;
     height: 80%;
 }
 
 #left-health, #right-health {
     width: 5%;
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center; */
 }
 
 
@@ -94,7 +105,6 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    background-color: yellow;
     width: 85%;
     height: 100%;
 }
@@ -105,21 +115,29 @@ body {
 }
 
 #player-side {
-    background-color: blue;
+    /* background-color: blue; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
 
+/* #player-side :nth-child(1) {order: 1; }
+#player-side :nth-child(2) {order: 2; }
+#player-side :nth-child(3) {order: 3; }
+#player-side :nth-child(4) {order: 4; } */
+
 #center-board {
-    background-color: rgb(255, 0, 238);
+    /* background-color: rgb(255, 0, 238); */
     height: 100%;
     width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 #computer-side {
-    background-color: brown;
+    /* background-color: brown; */
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -132,9 +150,13 @@ body {
 }
 
 #player-pet-img, #computer-pet-img {
-    background-color: azure;
-    width: 300px;
-    height: 300px
+    /* background-color: azure; */
+    width: 200px;
+    height: 200px;
+    opacity: 100%;
+    border: 3px solid black;
+    border-radius: 25%;
+
 }
 
 #player-dice, #computer-dice { 
@@ -162,7 +184,7 @@ body {
 
 @media screen and (max-width: 1200px) {
     #pet-names {
-        gap: 25rem;
+
         font-size: 1.3rem;
     }
 
@@ -170,11 +192,16 @@ body {
         height: 50px;
         width: 75px
     }
+
+    #empty {
+        width: 200px;
+    }
     
 }
 
 @media screen and (max-width: 600px) {
-    #pet-names {
-        gap: 14rem;
+
+    #empty {
+        width: 0px;
     }
 }
