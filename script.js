@@ -1,6 +1,6 @@
 //API KEY//
 //curl -u "f4f259d5da6f449b9269e70d9bcc9268:lIn5XoSlDRlWEdlWktgDwDRh6RlbUinL" -d grant_type=client_credentials https://oauth.battle.net/token//
-let api = 'US1YM1Ckqb0ppwqfC8wW4LWGmQr5UfWA7v'
+let api = 'USG3PCJwzMwzchRFDO5XijcXgDqPsZ5gGe'
 
 
 //VARIABLES//
@@ -45,22 +45,23 @@ const computer = {
     healthBar: 0,
 }
 
-//PLAYER DAMAGE ABILITY//
-
 //PLAYER ABILITY ICONS BACK TO NORMAL//
 const abilityframes = () => {
     playerPetDamage.style.border = '5px solid red'
     playerPetHeal.style.border = '5px solid green'
     playerPetSpecial.style.border = '5px solid white'
 }
+
 //COMPUTER ABILITIES FUNCTION//
 const computerAbilities = () => {
-    //DAMAGE//
     let compDiceRoll = 1
+    //DAMAGE//
+    
+    console.log(compDiceRoll)
     if (compDiceRoll === 1 && computer.turn === true) {
         computer.turn = false
         player.turn = true
-        let diceRoll = Math.floor(Math.random() * 20)
+        let diceRoll = Math.floor(Math.random() * 20) + 1
         player.health = player.health - diceRoll
         player.healthBar = player.healthBar + diceRoll
         leftBar.style.background = `linear-gradient(to bottom, black 0%, black ${player.healthBar}%, green ${player.healthBar}%, green 100%)`;
@@ -68,46 +69,106 @@ const computerAbilities = () => {
     //HEAL//
     } else if (compDiceRoll === 2 && computer.turn === true) {
         computer.turn = false
-        let diceRoll = Math.floor(Math.random() * 20)
-
+        player.turn = true
+        let diceRoll = Math.floor(Math.random() * 20) + 1
+        computer.health = computer.health + diceRoll
+        computer.healthBar = computer.healthBar - diceRoll
+        computerHealProtection()
     //SPECIAL//
     } else if (compDiceRoll === 3 && computer.turn === true) {
         computer.turn = false
-        let diceRoll = Math.floor(Math.random() * 40)
+        player.turn = true
+        specialAbility()
 
     }
 }
 
-//DICE ROLL//
-dice.addEventListener('click', () => {
-    if (player.damage === true && player.turn === true) {
+//PLAYER DAMAGE ABILITY//
+const playerDamage = () => {
+        let diceRoll = Math.floor(Math.random() * 20) + 1
         player.damage = false
         player.turn = false
         computer.turn = true
-        let diceRoll = Math.floor(Math.random() * 20)
-        // let compDiceRoll = Math.floor(Math.random() * 3)
         computer.health = computer.health - diceRoll
         computer.healthBar = computer.healthBar + diceRoll
         rightBar.style.background = `linear-gradient(to bottom, black 0%, black ${computer.healthBar}%, green ${computer.healthBar}%, green 100%)`;
         rightHealth.innerText = `${computer.health}%`
-        abilityframes()
-        console.log(computer.turn)
-        computerAbilities()
-        
-    } else if (player.heal === true && player.turn === true) {
+}
+//PLAYER HEAL ABLITILY//
+const playerHeal = () => {
+        let diceRoll = Math.floor(Math.random() * 20) + 1
         player.heal = false
         player.turn = false
-        let diceRoll = Math.floor(Math.random() * 20)
-        // let compDiceRoll = Math.floor(Math.random() * 3)
+        computer.turn = true
+        player.health = player.health + diceRoll
+        player.healthBar = player.healthBar - diceRoll
+        playerHealProtection()
+}
+//KEEP COMPUTERS HEALTH BAR AND HEALTH AT 100% IF OVERHEALING//
+const computerHealProtection = () => {
+    if (computer.healthBar <= 0) {
+        computer.healthBar = 0
+        computer.health = 100
+        rightBar.style.background = `linear-gradient(to right, black 0%, green 40%, green 60%, black 100%)`;
+        rightHealth.innerText = `100%`
+    } else {
+        rightBar.style.background = `linear-gradient(to bottom, black 0%, black ${computer.healthBar}%, green ${computer.healthBar}%, green 100%)`;
+        rightHealth.innerText = `${computer.health}%`
+    }
+}
+//KEEP PLAYERS HEALTH BAR AND HEALTH AT 100% IF OVERHEALING//
+const playerHealProtection = () => {
+    if (player.healthBar <= 0) {
+            player.healthBar = 0
+            player.health = 100
+            leftBar.style.background = `linear-gradient(to right, black 0%, green 40%, green 60%, black 100%)`;
+            leftHealth.innerText = `100%`
+        } else {
+            leftBar.style.background = `linear-gradient(to bottom, black 0%, black ${player.healthBar}%, green ${player.healthBar}%, green 100%)`;
+            leftHealth.innerText = `${player.health}%`
+        }
+}
+//SPECIAL ABILITY//
+const specialAbility = () => {
+    let diceRoll = Math.floor(Math.random() * 40) + 1
+        let abilityRoll = Math.floor(Math.random() * 4) + 1
+        if (abilityRoll === 1){ //DAMAGE THE COMPUTER//
+            computer.health = computer.health - diceRoll
+            computer.healthBar = computer.healthBar + diceRoll
+            rightBar.style.background = `linear-gradient(to bottom, black 0%, black ${computer.healthBar}%, green ${computer.healthBar}%, green 100%)`;
+            rightHealth.innerText = `${computer.health}%`
+        } else if (abilityRoll === 2) { //HEAL PLAYER//
+            player.health = player.health + diceRoll
+            player.healthBar = player.healthBar - diceRoll
+            playerHealProtection()
+        } else if (abilityRoll === 3) { //DAMAGE PLAYER//
+            player.health = player.health - diceRoll
+            player.healthBar = player.healthBar + diceRoll
+            leftBar.style.background = `linear-gradient(to bottom, black 0%, black ${player.healthBar}%, green ${player.healthBar}%, green 100%)`;
+            leftHealth.innerText = `${player.health}%`
+        } else if (abilityRoll === 4) { //HEAL THE COMPUTER//
+            computer.health = computer.health + diceRoll
+            computer.healthBar = computer.healthBar - diceRoll
+            computerHealProtection()
+        }
+}
 
+//DICE ROLL/ACTIVATE ABILITY//
+dice.addEventListener('click', () => {
+    if (player.damage === true && player.turn === true) {
+        playerDamage()
+        
+    } else if (player.heal === true && player.turn === true) {
+        playerHeal()
 
     } else if (player.special === true && player.turn === true) {
         player.special = false
         player.turn = false
-        let diceRoll = Math.floor(Math.random() * 40)
-        // let compDiceRoll = Math.floor(Math.random() * 3)
-
+        computer.turn = true
+        specialAbility()
     }
+    abilityframes() 
+    setTimeout(computerAbilities, 2000)
 })
 
 
@@ -184,6 +245,8 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[0].ability.name}" \nInflicts 1-20 Damage to enemy`
         playerPetDamage.addEventListener('click', () => {
             player.damage = true
+            player.heal = false
+            player.special = false
             if (player.turn === true) {
                 playerPetDamage.style.border = '10px solid red'
                 playerPetHeal.style.border = '5px solid green'
@@ -200,6 +263,8 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[1].ability.name}" \nHeals you for 1-20`
         playerPetHeal.addEventListener('click', () => {
             player.heal = true
+            player.damage = false
+            player.special = false
             if (player.turn === true) {
                 playerPetDamage.style.border = '5px solid red'
                 playerPetHeal.style.border = '10px solid green'
@@ -216,6 +281,8 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[2].ability.name}" \nDoes something random, who knows?`
         playerPetSpecial.addEventListener('click', () => {
             player.special = true
+            player.heal = false
+            player.damage = false
             if (player.turn === true) {
                 playerPetDamage.style.border = '5px solid red'
                 playerPetHeal.style.border = '5px solid green'
@@ -266,5 +333,3 @@ generatePet.addEventListener('click', async () => {
 
 
 //TESTS//
-// change = document.querySelector("#left-bar")
-// change.style.background = "linear-gradient(to bottom, black 0%, black 25%, green 25%, green 100%)";
