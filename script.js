@@ -22,6 +22,8 @@ const computerPetSpecial = document.getElementById('computer-special')
 const dice = document.getElementById('player-dice')
 const rightBar = document.querySelector("#right-bar")
 const rightHealth = document.querySelector('#right-hp')
+const leftBar = document.querySelector('#left-bar')
+const leftHealth = document.querySelector('#left-hp')
 
 //PLAYER OBJECT STATUS//
 const player = {
@@ -45,28 +47,65 @@ const computer = {
 
 //PLAYER DAMAGE ABILITY//
 
+//PLAYER ABILITY ICONS BACK TO NORMAL//
+const abilityframes = () => {
+    playerPetDamage.style.border = '5px solid red'
+    playerPetHeal.style.border = '5px solid green'
+    playerPetSpecial.style.border = '5px solid white'
+}
+//COMPUTER ABILITIES FUNCTION//
+const computerAbilities = () => {
+    //DAMAGE//
+    let compDiceRoll = 1
+    if (compDiceRoll === 1 && computer.turn === true) {
+        computer.turn = false
+        player.turn = true
+        let diceRoll = Math.floor(Math.random() * 20)
+        player.health = player.health - diceRoll
+        player.healthBar = player.healthBar + diceRoll
+        leftBar.style.background = `linear-gradient(to bottom, black 0%, black ${player.healthBar}%, green ${player.healthBar}%, green 100%)`;
+        leftHealth.innerText = `${player.health}%`
+    //HEAL//
+    } else if (compDiceRoll === 2 && computer.turn === true) {
+        computer.turn = false
+        let diceRoll = Math.floor(Math.random() * 20)
+
+    //SPECIAL//
+    } else if (compDiceRoll === 3 && computer.turn === true) {
+        computer.turn = false
+        let diceRoll = Math.floor(Math.random() * 40)
+
+    }
+}
 
 //DICE ROLL//
 dice.addEventListener('click', () => {
     if (player.damage === true && player.turn === true) {
         player.damage = false
         player.turn = false
+        computer.turn = true
         let diceRoll = Math.floor(Math.random() * 20)
+        // let compDiceRoll = Math.floor(Math.random() * 3)
         computer.health = computer.health - diceRoll
         computer.healthBar = computer.healthBar + diceRoll
         rightBar.style.background = `linear-gradient(to bottom, black 0%, black ${computer.healthBar}%, green ${computer.healthBar}%, green 100%)`;
         rightHealth.innerText = `${computer.health}%`
+        abilityframes()
+        console.log(computer.turn)
+        computerAbilities()
         
     } else if (player.heal === true && player.turn === true) {
         player.heal = false
         player.turn = false
         let diceRoll = Math.floor(Math.random() * 20)
+        // let compDiceRoll = Math.floor(Math.random() * 3)
 
 
     } else if (player.special === true && player.turn === true) {
         player.special = false
         player.turn = false
-        let diceRoll = Math.floor(Math.random() * 30)
+        let diceRoll = Math.floor(Math.random() * 40)
+        // let compDiceRoll = Math.floor(Math.random() * 3)
 
     }
 })
@@ -145,7 +184,11 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[0].ability.name}" \nInflicts 1-20 Damage to enemy`
         playerPetDamage.addEventListener('click', () => {
             player.damage = true
-
+            if (player.turn === true) {
+                playerPetDamage.style.border = '10px solid red'
+                playerPetHeal.style.border = '5px solid green'
+                playerPetSpecial.style.border = '5px solid white'
+            }
         })
     })
     playerPetDamage.addEventListener('mouseout', () => {
@@ -157,7 +200,11 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[1].ability.name}" \nHeals you for 1-20`
         playerPetHeal.addEventListener('click', () => {
             player.heal = true
-
+            if (player.turn === true) {
+                playerPetDamage.style.border = '5px solid red'
+                playerPetHeal.style.border = '10px solid green'
+                playerPetSpecial.style.border = '5px solid white'
+            }
         })
     })
     playerPetHeal.addEventListener('mouseout', () => {
@@ -169,7 +216,11 @@ generatePet.addEventListener('click', async () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[2].ability.name}" \nDoes something random, who knows?`
         playerPetSpecial.addEventListener('click', () => {
             player.special = true
-
+            if (player.turn === true) {
+                playerPetDamage.style.border = '5px solid red'
+                playerPetHeal.style.border = '5px solid green'
+                playerPetSpecial.style.border = '10px solid white'
+            }
         })
     })
     playerPetSpecial.addEventListener('mouseout', () => {
