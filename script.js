@@ -11,8 +11,68 @@ const compPet = document.querySelector('#comp-pet')
 const playPet = document.querySelector('#play-pet')
 const playerPetInfo = document.querySelector('#player-info')
 const computerPetInfo = document.querySelector('#computer-info')
+const playerPetMouse = document.getElementById('player-pet-img')
+const playerPetDamage = document.getElementById('player-damage')
+const playerPetHeal = document.getElementById('player-heal')
+const playerPetSpecial = document.getElementById('player-special')
+const computerPetMouse = document.getElementById('computer-pet-img')
+const computerPetDamage = document.getElementById('computer-damage')
+const computerPetHeal = document.getElementById('computer-heal')
+const computerPetSpecial = document.getElementById('computer-special')
+const dice = document.getElementById('player-dice')
+const rightBar = document.querySelector("#right-bar")
+const rightHealth = document.querySelector('#right-hp')
 
-//FUNCTIONS//
+//PLAYER OBJECT STATUS//
+const player = {
+    turn: true,
+    health: 100,
+    damage: false,
+    heal: false,
+    special: false,
+    healthBar: 0,
+}
+
+//COMPUTER OBJECT STATUS//
+const computer = {
+    turn: false,
+    health: 100,
+    damage: false,
+    heal: false,
+    special: false,
+    healthBar: 0,
+}
+
+//PLAYER DAMAGE ABILITY//
+
+
+//DICE ROLL//
+dice.addEventListener('click', () => {
+    if (player.damage === true && player.turn === true) {
+        player.damage = false
+        player.turn = false
+        let diceRoll = Math.floor(Math.random() * 20)
+        computer.health = computer.health - diceRoll
+        computer.healthBar = computer.healthBar + diceRoll
+        rightBar.style.background = `linear-gradient(to bottom, black 0%, black ${computer.healthBar}%, green ${computer.healthBar}%, green 100%)`;
+        rightHealth.innerText = `${computer.health}%`
+        
+    } else if (player.heal === true && player.turn === true) {
+        player.heal = false
+        player.turn = false
+        let diceRoll = Math.floor(Math.random() * 20)
+
+
+    } else if (player.special === true && player.turn === true) {
+        player.special = false
+        player.turn = false
+        let diceRoll = Math.floor(Math.random() * 30)
+
+    }
+})
+
+
+//ALL ICONS/DESCRIPTIONS//
 generatePet.addEventListener('click', async () => {
     //PLAYER AND PET NAMES(top)//
     let buttonClickName = await axios.get(`https://us.api.blizzard.com/data/wow/pet/index?namespace=static-us&locale=en_US&access_token=${api}`)
@@ -73,7 +133,6 @@ generatePet.addEventListener('click', async () => {
 
 
     //PLAYER PET DESCRIPTION MOUSEOVER/MOUSEOUT//
-    let playerPetMouse = document.getElementById('player-pet-img')
     playerPetMouse.addEventListener('mouseover', () => {
         playerPetInfo.innerText = playPetInfo.data.description
      })
@@ -82,34 +141,42 @@ generatePet.addEventListener('click', async () => {
     })
 
     //PLAYER PET DAMAGE ABILITY MOUSEOVER/MOUSEOUT//
-    let playerPetDamage = document.getElementById('player-damage')
     playerPetDamage.addEventListener('mouseover', () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[0].ability.name}" \nInflicts 1-20 Damage to enemy`
+        playerPetDamage.addEventListener('click', () => {
+            player.damage = true
+
+        })
     })
     playerPetDamage.addEventListener('mouseout', () => {
         playerPetInfo.innerText = ''
     })
 
     //PLAYER PET HEAL ABILITY MOUSEOVER/MOUSEOUT//
-    let playerPetHeal = document.getElementById('player-heal')
     playerPetHeal.addEventListener('mouseover', () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[1].ability.name}" \nHeals you for 1-20`
+        playerPetHeal.addEventListener('click', () => {
+            player.heal = true
+
+        })
     })
-    playerPetDamage.addEventListener('mouseout', () => {
+    playerPetHeal.addEventListener('mouseout', () => {
         playerPetInfo.innerText = ''
     })
 
     //PLAYER PET SPECIAL ABILITY MOUSEOVER/MOUSEOUT//
-    let playerPetSpecial = document.getElementById('player-special')
     playerPetSpecial.addEventListener('mouseover', () => {
         playerPetInfo.innerText = `"${playPetInfo.data.abilities[2].ability.name}" \nDoes something random, who knows?`
+        playerPetSpecial.addEventListener('click', () => {
+            player.special = true
+
+        })
     })
     playerPetSpecial.addEventListener('mouseout', () => {
         playerPetInfo.innerText = ''
     })
 
     //COMPUTER PET DESCTIPTION MOUSEOVER/MOUSEOUT//
-    let computerPetMouse = document.getElementById('computer-pet-img')
     computerPetMouse.addEventListener('mouseover', () => {
         computerPetInfo.innerText = compPetInfo.data.description
         computerPetInfo.style.color = 'white';
@@ -119,7 +186,6 @@ generatePet.addEventListener('click', async () => {
     })
 
     //COMPUTER PET DAMAGE MOUSEOVER/MOUSEOUT//
-    let computerPetDamage = document.getElementById('computer-damage')
     computerPetDamage.addEventListener('mouseover', () => {
         computerPetInfo.innerText = `"${compPetInfo.data.abilities[0].ability.name}" \nInflicts 1-20 Damage to enemy`
     })
@@ -128,7 +194,6 @@ generatePet.addEventListener('click', async () => {
     })
 
     //COMPUTER PET HEAL ABILITY MOUSEOVER/MOUSEOUT//
-    let computerPetHeal = document.getElementById('computer-heal')
     computerPetHeal.addEventListener('mouseover', () => {
         computerPetInfo.innerText = `"${compPetInfo.data.abilities[1].ability.name}" \nHeals you for 1-20`
     })
@@ -137,19 +202,16 @@ generatePet.addEventListener('click', async () => {
     })
 
     //COMPUTER PET SPECIAL ABILITY MOUSEOVER/MOUSEOUT//
-    let computerPetSpecial = document.getElementById('computer-special')
     computerPetSpecial.addEventListener('mouseover', () => {
         computerPetInfo.innerText = `"${compPetInfo.data.abilities[2].ability.name}" \nDoes something random, who knows?`
     })
     computerPetSpecial.addEventListener('mouseout', () => {
         computerPetInfo.innerText = ''
     })
-
-    
-
 })
 
-//EVENT LISTENERS//
+
+
 
 
 //TESTS//
